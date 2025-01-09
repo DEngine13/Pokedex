@@ -2,28 +2,71 @@ import "./App.css";
 
 import PokemonCard from "./components/PokemonCard";
 
+import { useState } from "react";
+
 const pokemonList = [
   {
-    name: "Bulbasaur",
+    name: "bulbasaur",
     imgSrc:
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
   },
   {
-    name: "Mew",
+    name: "charmander",
     imgSrc:
-      "https://img.pokemondb.net/artwork/large/mew.jpg",
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
+  },
+  {
+    name: "squirtle",
+    imgSrc:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
+  },
+  {
+    name: "pikachu",
+    imgSrc:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+  },
+  {
+    name: "mew",
+    imgSrc: "https://img.pokemondb.net/artwork/avif/mew.avif",
   },
 ];
 
 function App() {
+  const [pokemonIndex, setPokemonIndex] = useState(0);
+  const handleClickPlus = () => {
+    if (pokemonIndex < pokemonList.length - 1) {
+      setPokemonIndex(pokemonIndex + 1);
+    }
+  };
+
+  const handleClickMinus = () => {
+    if (pokemonIndex > 0) {
+      setPokemonIndex(pokemonIndex - 1);
+    }
+  };
+
   return (
-  <section>
+    <section>
       <div className="CardApp">
-    <PokemonCard name={pokemonList[0].name} imgSrc={pokemonList[0].imgSrc}/>
-    <PokemonCard name={pokemonList[1].name} imgSrc={pokemonList[1].imgSrc}/> 
-    </div>
+        <PokemonCard
+          name={pokemonList[pokemonIndex].name}
+          imgSrc={pokemonList[pokemonIndex].imgSrc}
+        />
+        {pokemonIndex < pokemonList.length - 1 ? (
+          <button type="button" onClick={handleClickPlus}>
+            Next
+          </button>
+        ) : null}
+
+        {pokemonIndex > 0 ? (
+          <button type="button" onClick={handleClickMinus}>
+            Previous
+          </button>
+        ) : null}
+
+        <p>{pokemonIndex}</p>
+      </div>
     </section>
-    
   );
 }
 
